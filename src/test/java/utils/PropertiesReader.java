@@ -1,3 +1,5 @@
+package utils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -17,9 +19,8 @@ public class PropertiesReader {
         String propertiesFilename;
         if (properties == null) {
             properties = new Properties();
-            try {
-                propertiesFilename = System.getProperty("propFileName");
-            } catch (NullPointerException ex) {
+            propertiesFilename = System.getProperty("propFileName");
+            if (propertiesFilename == null) {
                 propertiesFilename = "default";
             }
             try (InputStream is = PropertiesReader.class.getClassLoader().getResourceAsStream(propertiesFilename + ".properties")){
