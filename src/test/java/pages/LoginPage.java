@@ -1,15 +1,16 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.annotations.findby.How;
 import net.serenitybdd.core.pages.PageObject;
-import utils.WebElementWaiter;
+import net.thucydides.core.annotations.Step;
+import utils.TestManager;
 
 public class LoginPage extends PageObject {
 
-    private WebElementWaiter waiter;
+    private final TestManager manager;
 
     @FindBy(how = How.XPATH, using = "//h1[text()='Please sign in']")
     private WebElement loginPageHeader;
@@ -24,34 +25,39 @@ public class LoginPage extends PageObject {
     private WebElement submitLoginButton;
 
     public LoginPage() {
-        waiter = new WebElementWaiter(this.getDriver());
+        manager = new TestManager();
     }
 
+    @Step
     public String getPageUrl() {
         return this.getDriver().getCurrentUrl();
     }
 
+    @Step
     public void checkLoginPageDisplaying() {
-        waiter.waitUntilElementIsVisible(loginPageHeader);
-        waiter.waitUntilElementIsVisible(userNameInputField);
-        waiter.waitUntilElementIsVisible(passwordInputField);
-        waiter.waitUntilElementIsClickable(submitLoginButton);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(loginPageHeader);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(userNameInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(passwordInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(submitLoginButton);
     }
 
+    @Step
     public void enterUserName(String userName) {
-        waiter.waitUntilElementIsClickable(userNameInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(userNameInputField);
         userNameInputField.clear();
         userNameInputField.sendKeys(userName);
     }
 
+    @Step
     public void enterUserPassword(String userPassword) {
-        waiter.waitUntilElementIsClickable(passwordInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(passwordInputField);
         passwordInputField.clear();
         passwordInputField.sendKeys(userPassword);
     }
 
+    @Step
     public void pressSignInButton() {
-        waiter.waitUntilElementIsClickable(submitLoginButton);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(submitLoginButton);
         submitLoginButton.click();
     }
 }

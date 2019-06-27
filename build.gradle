@@ -11,7 +11,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.55")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.9.25")
     }
 }
 
@@ -26,13 +26,10 @@ dependencies {
     testCompile "org.slf4j:slf4j-simple:1.7.7"
     testCompile "org.assertj:assertj-core:3.12.2"
 
-    testCompile "net.serenity-bdd:serenity-core:2.0.55"
+    testCompile "net.serenity-bdd:serenity-core:1.9.25"
     testCompile "net.serenity-bdd:serenity-cucumber:1.9.8"
-    testCompile "net.serenity-bdd:serenity-screenplay:2.0.55"
-    testCompile "net.serenity-bdd:serenity-screenplay-webdriver:2.0.55"
-
-    testCompile "io.cucumber:cucumber-java:4.4.0"
-    testCompile "io.cucumber:cucumber-testng:4.4.0"
+    testCompile "net.serenity-bdd:serenity-screenplay:1.9.25"
+    testCompile "net.serenity-bdd:serenity-screenplay-webdriver:1.9.25"
 }
 
 test {

@@ -1,29 +1,21 @@
 package stepdefs;
 
+import static org.junit.Assert.assertEquals;
 import static utils.PropertiesReader.properties;
 
-import org.testng.asserts.SoftAssert;
-
-import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.thucydides.core.annotations.Steps;
 import pages.LoginPage;
 
 public class LoginStepDefs {
 
+    @Steps
     private LoginPage loginPage;
-    private SoftAssert softAssert;
-
-    @Before
-    public void setUp() {
-        loginPage = new LoginPage();
-        softAssert = new SoftAssert();
-    }
 
     @Then("Login page is displayed")
     public void checkLoginPageDisplaying() {
-        softAssert.assertEquals(loginPage.getPageUrl(), properties().getProperty("site.url") + "/login");
         loginPage.checkLoginPageDisplaying();
     }
 
@@ -40,5 +32,10 @@ public class LoginStepDefs {
     @And("User presses 'Sign in' button")
     public void pressSignInButton() {
         loginPage.pressSignInButton();
+    }
+
+    @Then("User is on Login page")
+    public void checkCurrentPageHaveLoginPageURL() {
+        assertEquals(loginPage.getPageUrl(), properties().getProperty("site.url") + "/login");
     }
 }

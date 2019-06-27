@@ -1,18 +1,22 @@
 package pages;
 
+
 import net.serenitybdd.core.pages.PageObject;
-import utils.WebElementWaiter;
+import net.thucydides.core.annotations.Step;
+import utils.TestManager;
 
 
 public class WebDriverPage extends PageObject {
 
-    WebElementWaiter waiter;
+    private final TestManager manager;
 
     public WebDriverPage() {
-        waiter = new WebElementWaiter(this.getDriver());
+        manager = new TestManager();
     }
 
+    @Step
     public void navigateToSite(String url) {
-        this.getDriver().navigate().to(url);
+        this.getDriver().manage().window().maximize();
+        this.getDriver().get(url);
     }
 }

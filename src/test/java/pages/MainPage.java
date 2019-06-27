@@ -1,16 +1,16 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.annotations.findby.How;
 import net.serenitybdd.core.pages.PageObject;
-import utils.WebElementWaiter;
-
+import net.thucydides.core.annotations.Step;
+import utils.TestManager;
 
 public class MainPage extends PageObject {
 
-    private WebElementWaiter waiter;
+    private final TestManager manager;
 
     @FindBy(how = How.ID, using = "word-input")
     private WebElement wordInputField;
@@ -37,27 +37,29 @@ public class MainPage extends PageObject {
     private WebElement logoutButton;
 
     public MainPage() {
-        waiter = new WebElementWaiter(this.getDriver());
+        manager = new TestManager();
     }
 
+    @Step
     public String getPageUrl() {
         return this.getDriver().getCurrentUrl();
     }
 
+    @Step
     public void checkMainPageDisplaying() {
-        waiter.waitUntilElementIsVisible(wordInputField);
-        waiter.waitUntilElementIsVisible(transcriptionInputField);
-        waiter.waitUntilElementIsVisible(translationInputField);
-        waiter.waitUntilElementIsVisible(exampleInputField);
-        waiter.waitUntilElementIsVisible(exampleTranslationInputField);
-        waiter.waitUntilElementIsClickable(autofillButton);
-        waiter.waitUntilElementIsClickable(submitWordAddingButton);
-        waiter.waitUntilElementIsClickable(logoutButton);
-
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(wordInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(transcriptionInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(translationInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(exampleInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsVisible(exampleTranslationInputField);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(autofillButton);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(submitWordAddingButton);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(logoutButton);
     }
 
+    @Step
     public void pressLogoutButton() {
-        waiter.waitUntilElementIsClickable(logoutButton);
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(logoutButton);
         logoutButton.click();
     }
 }
