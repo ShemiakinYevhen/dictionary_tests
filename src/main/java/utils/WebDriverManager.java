@@ -13,12 +13,12 @@ public class WebDriverManager implements DriverSource {
         WebDriver driver = null;
         String browser;
         browser = System.getProperty("browser", "chrome");
-        switch(browser) {
+        switch (browser) {
             case ("chrome"):
                 //System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\drivers\\chromedriver.exe");
                 driver = new ChromeDriver();
                 break;
-            case("firefox"):
+            case ("firefox"):
                 //System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\drivers\\geckodriver.exe");
                 driver = new FirefoxDriver();
                 break;

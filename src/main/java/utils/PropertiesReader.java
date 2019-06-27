@@ -17,11 +17,11 @@ public class PropertiesReader {
 
     public static Properties properties() {
         if (properties == null) {
-            logger =  LoggerFactory.getLogger(PropertiesReader.class);
+            logger = LoggerFactory.getLogger(PropertiesReader.class);
             String propertiesFileName;
             properties = new Properties();
             propertiesFileName = System.getProperty("propFileName", "default");
-            try (InputStream is = PropertiesReader.class.getClassLoader().getResourceAsStream(propertiesFileName + ".properties")){
+            try (InputStream is = PropertiesReader.class.getClassLoader().getResourceAsStream(propertiesFileName + ".properties")) {
                 properties.load(is);
             } catch (NullPointerException | IOException ex) {
                 logger.error(ex.getMessage());

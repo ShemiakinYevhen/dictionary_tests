@@ -12,7 +12,7 @@ public class WebDriverStepDefs {
 
     @Before
     public void setUp() {
-        webDriverPage =  new WebDriverPage();
+        webDriverPage = new WebDriverPage();
     }
 
     @When("User navigates to site")
