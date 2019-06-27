@@ -1,18 +1,38 @@
+defaultTasks 'clean', 'test', 'aggregate'
+
 repositories {
     mavenLocal()
     jcenter()
 }
 
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.55")
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'net.serenity-bdd.aggregator'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
     testCompile "org.seleniumhq.selenium:selenium-java:3.12.0"
+    testCompile "org.slf4j:slf4j-simple:1.7.7"
+    testCompile "org.assertj:assertj-core:3.12.2"
+
+    testCompile "net.serenity-bdd:serenity-core:2.0.55"
+    testCompile "net.serenity-bdd:serenity-cucumber:1.9.8"
+    testCompile "net.serenity-bdd:serenity-screenplay:2.0.55"
+    testCompile "net.serenity-bdd:serenity-screenplay-webdriver:2.0.55"
+
     testCompile "io.cucumber:cucumber-java:4.4.0"
     testCompile "io.cucumber:cucumber-testng:4.4.0"
-    testCompile "org.slf4j:slf4j-simple:1.7.7"
 }
 
 test {
@@ -21,3 +41,4 @@ test {
 
 gradle.startParameter.continueOnFailure = true
 
+test.finalizedBy(aggregate)

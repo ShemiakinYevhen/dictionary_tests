@@ -10,20 +10,18 @@ import org.slf4j.LoggerFactory;
 public class PropertiesReader {
 
     private static Properties properties;
-    private static final Logger logger = LoggerFactory.getLogger(PropertiesReader.class);
+    private static Logger logger;
 
     private PropertiesReader() {
     }
 
-    public static Properties getProperties() {
-        String propertiesFilename;
+    public static Properties properties() {
         if (properties == null) {
+            logger =  LoggerFactory.getLogger(PropertiesReader.class);
+            String propertiesFileName;
             properties = new Properties();
-            propertiesFilename = System.getProperty("propFileName");
-            if (propertiesFilename == null) {
-                propertiesFilename = "default";
-            }
-            try (InputStream is = PropertiesReader.class.getClassLoader().getResourceAsStream(propertiesFilename + ".properties")){
+            propertiesFileName = System.getProperty("propFileName", "default");
+            try (InputStream is = PropertiesReader.class.getClassLoader().getResourceAsStream(propertiesFileName + ".properties")){
                 properties.load(is);
             } catch (NullPointerException | IOException ex) {
                 logger.error(ex.getMessage());

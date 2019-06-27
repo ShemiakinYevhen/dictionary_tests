@@ -18,16 +18,15 @@ public class WebElementWaiter {
     private static final int DEFAULT_WAIT_DURATION = 30;
     private static final int DEFAULT_SLEEP_DURATION = 1000;
 
-    private final WebDriver driver;
+    private static Wait<WebDriver> waiter;
 
-    public WebElementWaiter(WebDriver webDriver) {
-        driver = webDriver;
-        driver.manage().timeouts();
+    public WebElementWaiter(WebDriver driver) {
+        waiter = new WebDriverWait(driver, DEFAULT_WAIT_DURATION, DEFAULT_SLEEP_DURATION).ignoring(StaleElementReferenceException.class, WebDriverException.class);
     }
 
     public WebElement waitUntilElementIsVisible(WebElement targetElement) {
         try {
-            return createWebDriverWait().until(visibilityOf(targetElement));
+            return waiter.until(visibilityOf(targetElement));
         } catch (Exception e) {
             throw new AssertionError("Element not found: " + targetElement);
         }
@@ -35,7 +34,7 @@ public class WebElementWaiter {
 
     public WebElement waitUntilElementIsVisibleBy(By by) {
         try {
-            return createWebDriverWait().until(visibilityOfElementLocated(by));
+            return waiter.until(visibilityOfElementLocated(by));
         } catch (Exception e) {
             throw new AssertionError("Element not found: " + by);
         }
@@ -43,7 +42,7 @@ public class WebElementWaiter {
 
     public void waitUntilElementIsInvisibleBy(By by) {
         try {
-            createWebDriverWait().until(invisibilityOfElementLocated(by));
+            waiter.until(invisibilityOfElementLocated(by));
         } catch (Exception e) {
             throw new AssertionError("Element is visible: " + by);
         }
@@ -51,13 +50,9 @@ public class WebElementWaiter {
 
     public WebElement waitUntilElementIsClickable(WebElement targetElement) {
         try {
-            return createWebDriverWait().until(elementToBeClickable(targetElement));
+            return waiter.until(elementToBeClickable(targetElement));
         } catch (Exception e) {
             throw new AssertionError("Element is not clickable: " + targetElement);
         }
-    }
-
-    private Wait<WebDriver> createWebDriverWait() {
-        return new WebDriverWait(driver, DEFAULT_WAIT_DURATION, DEFAULT_SLEEP_DURATION).ignoring(StaleElementReferenceException.class, WebDriverException.class);
     }
 }

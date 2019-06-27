@@ -1,16 +1,18 @@
 package pages;
 
-import utils.TestManager;
+import net.serenitybdd.core.pages.PageObject;
+import utils.WebElementWaiter;
 
-public class WebDriverPage {
 
-    private TestManager manager;
+public class WebDriverPage extends PageObject {
+
+    WebElementWaiter waiter;
 
     public WebDriverPage() {
-        manager = new TestManager();
+        waiter = new WebElementWaiter(this.getDriver());
     }
 
-    public void navigateToSite() {
-        manager.driver().navigate().to(manager.properties().getProperty("site.url"));
+    public void navigateToSite(String url) {
+        this.getDriver().navigate().to(url);
     }
 }

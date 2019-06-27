@@ -3,14 +3,14 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
-import org.testng.reporters.jq.Main;
 
-import utils.TestManager;
+import net.serenitybdd.core.pages.PageObject;
+import utils.WebElementWaiter;
 
-public class MainPage {
 
-    private TestManager manager;
+public class MainPage extends PageObject {
+
+    private WebElementWaiter waiter;
 
     @FindBy(how = How.ID, using = "word-input")
     private WebElement wordInputField;
@@ -37,28 +37,27 @@ public class MainPage {
     private WebElement logoutButton;
 
     public MainPage() {
-        manager = new TestManager();
-        PageFactory.initElements(manager.driver(), this);
+        waiter = new WebElementWaiter(this.getDriver());
     }
 
-    public void checkMainPageUrl() {
-        manager.driver().getCurrentUrl().equals(manager.properties().getProperty("sute.url") + "/login");
+    public String getPageUrl() {
+        return this.getDriver().getCurrentUrl();
     }
 
     public void checkMainPageDisplaying() {
-        manager.waiter().waitUntilElementIsVisible(wordInputField);
-        manager.waiter().waitUntilElementIsVisible(transcriptionInputField);
-        manager.waiter().waitUntilElementIsVisible(translationInputField);
-        manager.waiter().waitUntilElementIsVisible(exampleInputField);
-        manager.waiter().waitUntilElementIsVisible(exampleTranslationInputField);
-        manager.waiter().waitUntilElementIsClickable(autofillButton);
-        manager.waiter().waitUntilElementIsClickable(submitWordAddingButton);
-        manager.waiter().waitUntilElementIsClickable(logoutButton);
+        waiter.waitUntilElementIsVisible(wordInputField);
+        waiter.waitUntilElementIsVisible(transcriptionInputField);
+        waiter.waitUntilElementIsVisible(translationInputField);
+        waiter.waitUntilElementIsVisible(exampleInputField);
+        waiter.waitUntilElementIsVisible(exampleTranslationInputField);
+        waiter.waitUntilElementIsClickable(autofillButton);
+        waiter.waitUntilElementIsClickable(submitWordAddingButton);
+        waiter.waitUntilElementIsClickable(logoutButton);
 
     }
 
     public void pressLogoutButton() {
-        manager.waiter().waitUntilElementIsClickable(logoutButton);
+        waiter.waitUntilElementIsClickable(logoutButton);
         logoutButton.click();
     }
 }

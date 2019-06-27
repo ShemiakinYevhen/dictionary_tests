@@ -3,13 +3,13 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
-import utils.TestManager;
+import net.serenitybdd.core.pages.PageObject;
+import utils.WebElementWaiter;
 
-public class LoginPage {
+public class LoginPage extends PageObject {
 
-    private TestManager manager;
+    private WebElementWaiter waiter;
 
     @FindBy(how = How.XPATH, using = "//h1[text()='Please sign in']")
     private WebElement loginPageHeader;
@@ -24,35 +24,34 @@ public class LoginPage {
     private WebElement submitLoginButton;
 
     public LoginPage() {
-        manager = new TestManager();
-        PageFactory.initElements(manager.driver(), this);
+        waiter = new WebElementWaiter(this.getDriver());
     }
 
-    public void checkLoginPageUrl() {
-        manager.driver().getCurrentUrl().equals(manager.properties().getProperty("sute.url") + "/login");
+    public String getPageUrl() {
+        return this.getDriver().getCurrentUrl();
     }
 
     public void checkLoginPageDisplaying() {
-        manager.waiter().waitUntilElementIsVisible(loginPageHeader);
-        manager.waiter().waitUntilElementIsVisible(userNameInputField);
-        manager.waiter().waitUntilElementIsVisible(passwordInputField);
-        manager.waiter().waitUntilElementIsClickable(submitLoginButton);
+        waiter.waitUntilElementIsVisible(loginPageHeader);
+        waiter.waitUntilElementIsVisible(userNameInputField);
+        waiter.waitUntilElementIsVisible(passwordInputField);
+        waiter.waitUntilElementIsClickable(submitLoginButton);
     }
 
-    public void enterUserName() {
-        manager.waiter().waitUntilElementIsClickable(userNameInputField);
+    public void enterUserName(String userName) {
+        waiter.waitUntilElementIsClickable(userNameInputField);
         userNameInputField.clear();
-        userNameInputField.sendKeys(manager.properties().getProperty("user.name"));
+        userNameInputField.sendKeys(userName);
     }
 
-    public void enterUserPassword() {
-        manager.waiter().waitUntilElementIsClickable(passwordInputField);
+    public void enterUserPassword(String userPassword) {
+        waiter.waitUntilElementIsClickable(passwordInputField);
         passwordInputField.clear();
-        passwordInputField.sendKeys(manager.properties().getProperty("user.password"));
+        passwordInputField.sendKeys(userPassword);
     }
 
     public void pressSignInButton() {
-        manager.waiter().waitUntilElementIsClickable(submitLoginButton);
+        waiter.waitUntilElementIsClickable(submitLoginButton);
         submitLoginButton.click();
     }
 }

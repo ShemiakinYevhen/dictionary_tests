@@ -10,7 +10,7 @@ public class MainPageStepDefs {
 
     @Then("Main page is displayed")
     public void checkMainPageDisplaying() {
-        mainPage.checkMainPageUrl();
+        mainPage.getPageUrl();
         mainPage.checkMainPageDisplaying();
     }
 
