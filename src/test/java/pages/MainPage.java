@@ -62,4 +62,45 @@ public class MainPage extends PageObject {
         manager.waiter(this.getDriver()).waitUntilElementIsClickable(logoutButton);
         logoutButton.click();
     }
+
+    @Step
+    public void enterEnglishWord(String word) {
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(wordInputField);
+        wordInputField.clear();
+        wordInputField.sendKeys(word);
+    }
+
+    @Step
+    public void enterTranscription(String transcription) {
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(transcriptionInputField);
+        transcriptionInputField.clear();
+        transcriptionInputField.sendKeys(transcription);
+    }
+
+    @Step
+    public void enterRussianTranslation(String russianTranslation) {
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(translationInputField);
+        transcriptionInputField.clear();
+        translationInputField.sendKeys(russianTranslation);
+    }
+
+    @Step
+    public void enterEnglishExample(String englishExample) {
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(exampleInputField);
+        exampleInputField.clear();
+        exampleInputField.sendKeys(englishExample);
+    }
+
+    @Step
+    public void enterExampleRussianTranslation(String exampleRussianTranslation) {
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(exampleTranslationInputField);
+        exampleTranslationInputField.clear();
+        exampleTranslationInputField.sendKeys(exampleRussianTranslation);
+    }
+
+    @Step
+    public void pressAddWordButton() {
+        manager.waiter(this.getDriver()).waitUntilElementIsClickable(submitWordAddingButton);
+        submitWordAddingButton.click();
+    }
 }
